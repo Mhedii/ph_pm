@@ -6,6 +6,7 @@ type IssueStore = {
   // remove: () => void;
   // removeAll: () => void;
   issues: [];
+  id: 1;
   // addIssue: () => void;
 };
 
@@ -15,7 +16,29 @@ export const useIssueStore = create<IssueStore>((set) => ({
   // remove: () => set((state) => ({ cart: state.cart - 1 })),
   // removeAll: () => set({ cart: 0 }),
   issues: [],
-  // addIssue: () => set((state) => ({ issues: state.issues })),
+  id: 1,
+  // addIssue: (newIssue: any) =>
+  //   set((state): any => ({
+  //     issues: [
+  //       ...state.issues.map((issue: any) =>
+  //         issue === newIssue
+  //           ? { ...issue, issueName: newIssue.issueName }
+  //           : issue
+  //       ),
+  //       newIssue,
+  //     ],
+  //   })),
   addIssue: (value: any) =>
-    set((state): any => ({ issues: [...state.issues, value] })),
+    set((state): any => ({
+      issues: [...state.issues, value],
+      id: state.id + 1,
+    })),
+  updateIssue: (updatedIssue: any) =>
+    set((state): any => ({
+      issues: state.issues.map((issue: any) =>
+        issue.id === updatedIssue.id
+          ? { ...issue, issueName: updatedIssue.issueName }
+          : issue
+      ),
+    })),
 }));

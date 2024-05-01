@@ -12,21 +12,21 @@ const { TextArea } = Input;
 // };
 
 const AddIssue = ({ handleIssue, issueName }: any) => {
-  const { addIssue }: any = useIssueStore();
+  const { addIssue, id }: any = useIssueStore();
   const handleEnter = (e: any) => {
     //   console.log(issueName);
     // console.log(e.target.value);
-    const value = e.target.value;
-    const formData = { value, issueName };
+    const issue = e.target.value;
+    const formData = { issue, issueName, id };
     console.log(formData);
-    addIssue(value);
+    addIssue(formData);
     handleIssue();
   };
 
   return (
     <div className="mx-4">
       <TextArea
-        className=" "
+        className=" mb-4"
         showCount
         maxLength={100}
         onPressEnter={handleEnter}
