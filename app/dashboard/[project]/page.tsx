@@ -1,15 +1,13 @@
 "use client";
-import AddIssue from "@/components/AddIssue";
 import IssueContainer from "@/components/IssueContainer";
 import { useIssueStore } from "@/store/zustand";
 import React, { useState } from "react";
-import { FaPlus } from "react-icons/fa6";
 const page = ({ props }: any) => {
   const [toggleIssueCreate, setToggleIssueCreate] = useState(true);
   const [toggleIssueCreate2, setToggleIssueCreate2] = useState(true);
   const [toggleIssueCreate3, setToggleIssueCreate3] = useState(true);
   const { issues, updateIssue } = useIssueStore();
-  // console.log(props);
+
   const handleIssue = () => {
     setToggleIssueCreate(!toggleIssueCreate);
   };

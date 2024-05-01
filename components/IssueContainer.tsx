@@ -1,6 +1,7 @@
 import { FaPlus } from "react-icons/fa6";
 import AddIssue from "./AddIssue";
 import React from "react";
+import { usePathname } from "next/navigation";
 
 const IssueContainer = ({
   title,
@@ -15,6 +16,8 @@ const IssueContainer = ({
     // e.dataTransfer.setData("text", issue);
     e.dataTransfer.setData("text/plain", JSON.stringify(issue));
   };
+  const pathname = usePathname();
+  const projectName = pathname.split("/dashboard/")[1];
   return (
     <div
       className="h-fit rounded-md bg-gray-50"
@@ -23,7 +26,10 @@ const IssueContainer = ({
     >
       <h1 className="mx-4">{title}</h1>
       {issues
-        .filter((issue: any) => issue.issueName === issueName) // Filter issues by issueName
+        .filter(
+          (issue: any) =>
+            issue.projectName === projectName && issue.issueName === issueName
+        ) // Filter issues by issueName
         .map((issue: any, index: any) => (
           <div
             key={index}
