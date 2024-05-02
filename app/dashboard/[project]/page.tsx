@@ -2,7 +2,7 @@
 import IssueContainer from "@/components/IssueContainer";
 import { useIssueStore } from "@/store/zustand";
 import React, { useState } from "react";
-const page = ({ props }: any) => {
+const Page = ({ props }: any) => {
   const [toggleIssueCreate, setToggleIssueCreate] = useState(true);
   const [toggleIssueCreate2, setToggleIssueCreate2] = useState(true);
   const [toggleIssueCreate3, setToggleIssueCreate3] = useState(true);
@@ -65,4 +65,4 @@ const page = ({ props }: any) => {
   );
 };
 
-export default page;
+export default Page;
