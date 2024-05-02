@@ -6,7 +6,7 @@ const page = ({ props }: any) => {
   const [toggleIssueCreate, setToggleIssueCreate] = useState(true);
   const [toggleIssueCreate2, setToggleIssueCreate2] = useState(true);
   const [toggleIssueCreate3, setToggleIssueCreate3] = useState(true);
-  const { issues, updateIssue } = useIssueStore();
+  const { issues, updateIssue }: any = useIssueStore();
 
   const handleIssue = () => {
     setToggleIssueCreate(!toggleIssueCreate);
@@ -61,65 +61,6 @@ const page = ({ props }: any) => {
           issueName="done"
         />
       </div>
-      {/* <div className="grid grid-cols-3 gap-12 min-h-[90vh]">
-        <div className="h-fit rounded-md bg-gray-50 ">
-          <h1 className="mx-4">TODO 2</h1>
-          {issues.map((issue, index) => (
-            <>
-              <p
-                className="m-4 border rounded-md p-4 hover:cursor-pointer"
-                key={index}
-                draggable
-              >
-                {issue}
-              </p>
-            </>
-          ))}
-          {toggleIssueCreate ? (
-            <>
-              <h1
-                className="font-semibold flex items-center gap-2 py-2 m-4 bg-slate-400 rounded-md px-4 "
-                onClick={handleIssue}
-              >
-                <FaPlus /> ADD ISSUE
-              </h1>
-            </>
-          ) : (
-            <AddIssue handleIssue={handleIssue} issueName="todo" />
-          )}
-        </div>
-
-        <div className="h-fit rounded-md bg-gray-50 ">
-          <h1>IN PROGRESS 1</h1>
-          {toggleIssueCreate2 ? (
-            <>
-              <h1
-                className="font-semibold flex items-center gap-2 py-2 m-4 bg-slate-400 rounded-md px-4 "
-                onClick={handleIssue2}
-              >
-                <FaPlus /> ADD ISSUE
-              </h1>
-            </>
-          ) : (
-            <AddIssue handleIssue={handleIssue2} issueName="progress" />
-          )}
-        </div>
-        <div className="h-fit rounded-md bg-gray-50 ">
-          <h1>DONE 3</h1>
-          {toggleIssueCreate3 ? (
-            <>
-              <h1
-                className="font-semibold flex items-center gap-2 py-2 m-4 bg-slate-400 rounded-md px-4 "
-                onClick={handleIssue3}
-              >
-                <FaPlus /> ADD ISSUE
-              </h1>
-            </>
-          ) : (
-            <AddIssue handleIssue={handleIssue3} issueName="done" />
-          )}
-        </div>
-      </div> */}
     </div>
   );
 };

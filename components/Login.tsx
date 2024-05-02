@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
 import type { FormProps } from "antd";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message, Space } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUsers } from "@/apicall";
+import { useRouter } from "next/navigation";
 
 type FieldType = {
   username?: string;
@@ -11,29 +12,30 @@ type FieldType = {
   remember?: string;
 };
 
-// const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-
-//   console.log("Success:", values);
-
-// };
-
 const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 
 const Login = () => {
+  const router = useRouter();
   const { data, isLoading, isError } = useQuery({
     queryKey: ["users"],
     queryFn: fetchUsers,
   });
-  console.log(data);
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "This is an error message",
+    });
+  };
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     if (isLoading || isError || !data) {
       console.log("Error: Unable to fetch user data");
       return;
     }
 
-    // Find the user from the fetched data
     const user = data.find((user: any) => user.username === values.username);
 
     if (!user) {
@@ -43,14 +45,13 @@ const Login = () => {
 
     // Check if the password matches
     if (user.password === values.password) {
-      console.log("Success: Login successful!");
+      message.success("Login successful!");
+
+      router.push("/dashboard");
     } else {
-      console.log("Error: Incorrect password");
+      message.error("Incorrect username/password");
     }
   };
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   if (isError) {
     return <div>Error fetching users</div>;

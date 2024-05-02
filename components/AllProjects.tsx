@@ -8,6 +8,8 @@ import {
 } from "@ant-design/icons";
 import { Avatar, Card } from "antd";
 import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProjects } from "@/apicall";
 
 const { Meta } = Card;
 
@@ -51,35 +53,33 @@ const AllProjects = () => {
     // Add more card data as needed
   ];
   const router = useRouter();
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["projects"],
+    queryFn: fetchProjects,
+  });
 
   const handleClick = (project: any) => {
     // Navigate to the dynamic route
-    router.push(`/dashboard/${project}`);
+    const name = project.toLowerCase();
+    router.push(`/dashboard/${name}`);
   };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <div className="grid grid-cols-4  gap-4">
-        {cardsData.map((card, index) => (
+        {data.map((card: any) => (
           <Card
             onClick={() => handleClick(card.title)}
-            key={card.title}
+            key={card.id}
             className="hover:cursor-pointer"
-            // style={{ width: 300 }}
-
-            actions={[
-              // <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              // <EllipsisOutlined key="ellipsis" />,
-              <DeleteOutlined key="delete" />,
-            ]}
+            // actions={[
+            //   <EditOutlined key="edit" />,
+            //   <DeleteOutlined key="delete" />,
+            // ]}
           >
-            <Meta
-              avatar={
-                <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />
-              }
-              title="Card title"
-              description="This is the description"
-            />
+            <Meta title={card.title} description={card.description} />
           </Card>
         ))}
       </div>
